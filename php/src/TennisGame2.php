@@ -28,22 +28,7 @@ class TennisGame2 implements TennisGame
     {
         $score = '';
         if ($this->p1point === $this->p2point) {
-            if ($this->p1point < 4) {
-                if ($this->p1point === 0) {
-                    $score = 'Love';
-                }
-                if ($this->p1point === 1) {
-                    $score = 'Fifteen';
-                }
-                if ($this->p1point === 2) {
-                    $score = 'Thirty';
-                }
-                $score .= '-All';
-            }
-
-            if ($this->p1point >= 3) {
-                $score = 'Deuce';
-            }
+            $score = $this->getSameScoreQualifier($score);
         }
 
         if ($this->p1point > 0 && $this->p2point === 0) {
@@ -57,34 +42,12 @@ class TennisGame2 implements TennisGame
         }
 
         if ($this->p1point > $this->p2point && $this->p1point < 4) {
-            if ($this->p1point === 2) {
-                $this->p1res = 'Thirty';
-            }
-            if ($this->p1point === 3) {
-                $this->p1res = 'Forty';
-            }
-            if ($this->p2point === 1) {
-                $this->p2res = 'Fifteen';
-            }
-            if ($this->p2point === 2) {
-                $this->p2res = 'Thirty';
-            }
+            $this->computeResultForBestPlayer1LessThanFour();
             $score = "{$this->p1res}-{$this->p2res}";
         }
 
         if ($this->p2point > $this->p1point && $this->p2point < 4) {
-            if ($this->p2point === 2) {
-                $this->p2res = 'Thirty';
-            }
-            if ($this->p2point === 3) {
-                $this->p2res = 'Forty';
-            }
-            if ($this->p1point === 1) {
-                $this->p1res = 'Fifteen';
-            }
-            if ($this->p1point === 2) {
-                $this->p1res = 'Thirty';
-            }
+            $this->computeResultForBestPlayer2LessThanFour();
             $score = "{$this->p1res}-{$this->p2res}";
         }
 
@@ -164,5 +127,58 @@ class TennisGame2 implements TennisGame
             $this->p2res = 'Forty';
         }
         $this->p1res = 'Love';
+    }
+
+    protected function computeResultForBestPlayer1LessThanFour(): void
+    {
+        if ($this->p1point === 2) {
+            $this->p1res = 'Thirty';
+        }
+        if ($this->p1point === 3) {
+            $this->p1res = 'Forty';
+        }
+        if ($this->p2point === 1) {
+            $this->p2res = 'Fifteen';
+        }
+        if ($this->p2point === 2) {
+            $this->p2res = 'Thirty';
+        }
+    }
+
+    protected function computeResultForBestPlayer2LessThanFour(): void
+    {
+        if ($this->p2point === 2) {
+            $this->p2res = 'Thirty';
+        }
+        if ($this->p2point === 3) {
+            $this->p2res = 'Forty';
+        }
+        if ($this->p1point === 1) {
+            $this->p1res = 'Fifteen';
+        }
+        if ($this->p1point === 2) {
+            $this->p1res = 'Thirty';
+        }
+    }
+
+    protected function getSameScoreQualifier($score): string
+    {
+        if ($this->p1point < 4) {
+            if ($this->p1point === 0) {
+                $score = 'Love';
+            }
+            if ($this->p1point === 1) {
+                $score = 'Fifteen';
+            }
+            if ($this->p1point === 2) {
+                $score = 'Thirty';
+            }
+            $score .= '-All';
+        }
+
+        if ($this->p1point >= 3) {
+            $score = 'Deuce';
+        }
+        return $score;
     }
 }
