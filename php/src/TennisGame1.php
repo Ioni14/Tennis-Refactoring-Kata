@@ -22,9 +22,9 @@ class TennisGame1 implements TennisGame
         }
     }
 
-    public function getScore()
+    public function getScore(): string
     {
-        if ($this->m_score1 == $this->m_score2) {
+        if ($this->m_score1 === $this->m_score2) {
             return $this->getSameScoreQualifier($this->m_score1);
         }
         if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
