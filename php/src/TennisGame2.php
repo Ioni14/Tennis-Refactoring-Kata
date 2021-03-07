@@ -2,6 +2,8 @@
 
 namespace TennisGame;
 
+use Webmozart\Assert\Assert;
+
 class TennisGame2 implements TennisGame
 {
     private int $p1point = 0;
@@ -28,20 +30,12 @@ class TennisGame2 implements TennisGame
             return $this->getSameScoreQualifier();
         }
 
-        if ($this->hasPlayer1Won()) {
-            return 'Win for ' . $this->player1Name;
+        if ($this->hasAPlayerWon()) {
+            return 'Win for ' . $this->getBestPlayerName();
         }
 
-        if ($this->hasPlayer2Won()) {
-            return 'Win for ' . $this->player2Name;
-        }
-
-        if ($this->hasPlayer1Advantage()) {
-            return 'Advantage ' . $this->player1Name;
-        }
-
-        if ($this->hasPlayer2Advantage()) {
-            return 'Advantage ' . $this->player2Name;
+        if ($this->hasAPlayerAdvantage()) {
+            return 'Advantage ' . $this->getBestPlayerName();
         }
 
         $p1res = $this->computeResultPlayerLessThanFour($this->p1point);
@@ -58,26 +52,6 @@ class TennisGame2 implements TennisGame
     private function p2Score(): void
     {
         ++$this->p2point;
-    }
-
-    protected function hasPlayer1Won(): bool
-    {
-        return $this->p1point >= 4 && $this->p2point >= 0 && ($this->p1point - $this->p2point) >= 2;
-    }
-
-    protected function hasPlayer2Won(): bool
-    {
-        return $this->p2point >= 4 && $this->p1point >= 0 && ($this->p2point - $this->p1point) >= 2;
-    }
-
-    protected function hasPlayer1Advantage(): bool
-    {
-        return $this->p1point > $this->p2point && $this->p2point >= 3;
-    }
-
-    protected function hasPlayer2Advantage(): bool
-    {
-        return $this->p2point > $this->p1point && $this->p1point >= 3;
     }
 
     protected function getSameScoreQualifier(): string
@@ -99,5 +73,23 @@ class TennisGame2 implements TennisGame
             3 => 'Forty',
             default => '',
         };
+    }
+
+    private function getBestPlayerName(): string
+    {
+        return $this->p1point > $this->p2point
+            ? $this->player1Name
+            : $this->player2Name;
+    }
+
+    private function hasAPlayerWon(): bool
+    {
+        return ($this->p1point >= 4 || $this->p2point >= 4) && abs($this->p1point - $this->p2point) >= 2;
+    }
+
+    private function hasAPlayerAdvantage(): bool
+    {
+        return ($this->p1point > $this->p2point && $this->p2point >= 3)
+            || ($this->p2point > $this->p1point && $this->p1point >= 3);
     }
 }
