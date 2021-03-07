@@ -37,8 +37,8 @@ class TennisGame2 implements TennisGame
                 $this->p2res = 'Love';
             }
             if ($this->p1point < 4) {
-                $this->computeResultPlayer1LessThanFour($this->p1point);
-                $this->computeResultPlayer2LessThanFour($this->p2point);
+                $this->p1res = $this->computeResultPlayerLessThanFour($this->p1point, $this->p1res);
+                $this->p2res = $this->computeResultPlayerLessThanFour($this->p2point, $this->p2res);
             }
             $score = "{$this->p1res}-{$this->p2res}";
         }
@@ -49,8 +49,8 @@ class TennisGame2 implements TennisGame
                 $this->p1res = 'Love';
             }
             if ($this->p2point < 4) {
-                $this->computeResultPlayer1LessThanFour($this->p1point);
-                $this->computeResultPlayer2LessThanFour($this->p2point);
+                $this->p1res = $this->computeResultPlayerLessThanFour($this->p1point, $this->p1res);
+                $this->p2res = $this->computeResultPlayerLessThanFour($this->p2point, $this->p2res);
             }
             $score = "{$this->p1res}-{$this->p2res}";
         }
@@ -124,29 +124,13 @@ class TennisGame2 implements TennisGame
         };
     }
 
-    protected function computeResultPlayer1LessThanFour($p1Point): void
+    protected function computeResultPlayerLessThanFour($point, $previousResult): string
     {
-        if ($p1Point === 1) {
-            $this->p1res = 'Fifteen';
-        }
-        if ($p1Point === 2) {
-            $this->p1res = 'Thirty';
-        }
-        if ($p1Point === 3) {
-            $this->p1res = 'Forty';
-        }
-    }
-
-    protected function computeResultPlayer2LessThanFour($p2Point): void
-    {
-        if ($p2Point === 1) {
-            $this->p2res = 'Fifteen';
-        }
-        if ($p2Point === 2) {
-            $this->p2res = 'Thirty';
-        }
-        if ($p2Point === 3) {
-            $this->p2res = 'Forty';
-        }
+        return match ($point) {
+            1 => 'Fifteen',
+            2 => 'Thirty',
+            3 => 'Forty',
+            default => $previousResult,
+        };
     }
 }
