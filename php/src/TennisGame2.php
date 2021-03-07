@@ -37,7 +37,8 @@ class TennisGame2 implements TennisGame
                 $this->p2res = 'Love';
             }
             if ($this->p1point < 4) {
-                $this->computeResultForBestPlayer1LessThanFour();
+                $this->computeResultPlayer1LessThanFour($this->p1point);
+                $this->computeResultPlayer2LessThanFour($this->p2point);
             }
             $score = "{$this->p1res}-{$this->p2res}";
         }
@@ -112,22 +113,6 @@ class TennisGame2 implements TennisGame
         };
     }
 
-    protected function computeResultForBestPlayer1LessThanFour(): void
-    {
-        if ($this->p1point === 2) {
-            $this->p1res = 'Thirty';
-        }
-        if ($this->p1point === 3) {
-            $this->p1res = 'Forty';
-        }
-        if ($this->p2point === 1) {
-            $this->p2res = 'Fifteen';
-        }
-        if ($this->p2point === 2) {
-            $this->p2res = 'Thirty';
-        }
-    }
-
     protected function computeResultForBestPlayer2LessThanFour(): void
     {
         if ($this->p2point === 2) {
@@ -152,5 +137,25 @@ class TennisGame2 implements TennisGame
             2 => 'Thirty-All',
             default => 'Deuce',
         };
+    }
+
+    protected function computeResultPlayer1LessThanFour($p1Point): void
+    {
+        if ($p1Point === 2) {
+            $this->p1res = 'Thirty';
+        }
+        if ($p1Point === 3) {
+            $this->p1res = 'Forty';
+        }
+    }
+
+    protected function computeResultPlayer2LessThanFour($p2Point): void
+    {
+        if ($p2Point === 1) {
+            $this->p2res = 'Fifteen';
+        }
+        if ($p2Point === 2) {
+            $this->p2res = 'Thirty';
+        }
     }
 }
