@@ -60,11 +60,7 @@ class TennisGame1 implements TennisGame
         if ($this->hasOnePlayerAdvantage()) {
             return 'Advantage ' . $this->getPlayerHasAdvantage();
         }
-        if ($this->hasPlayer1Won()) {
-            return 'Win for ' . $this->player1Name;
-        }
-
-        return 'Win for ' . $this->player2Name;
+        return 'Win for ' . $this->getPlayerHasWon();
     }
 
     protected function getLessThanFourScore(): string
@@ -100,5 +96,10 @@ class TennisGame1 implements TennisGame
     private function hasOnePlayerAdvantage(): bool
     {
         return abs($this->m_score1 - $this->m_score2) === 1;
+    }
+
+    protected function getPlayerHasWon(): string
+    {
+        return $this->hasPlayer1Won() ? $this->player1Name : $this->player2Name;
     }
 }
