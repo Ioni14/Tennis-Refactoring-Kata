@@ -3,3 +3,6 @@
 /vendor
 /.phpunit.result.cache
 /build/
+.php_cs.cache
+.psalm
+infection.log
