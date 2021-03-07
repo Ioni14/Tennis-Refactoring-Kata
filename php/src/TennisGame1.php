@@ -36,16 +36,23 @@ class TennisGame1 implements TennisGame
 
     protected function getSameScoreQualifier($score): string
     {
-        switch ($score) {
-            case 0:
-                return 'Love-All';
-            case 1:
-                return 'Fifteen-All';
-            case 2:
-                return 'Thirty-All';
-        }
+        return match ($score) {
+            0 => 'Love-All',
+            1 => 'Fifteen-All',
+            2 => 'Thirty-All',
+            default => 'Deuce',
+        };
+    }
 
-        return 'Deuce';
+    protected function getScoreQualifier(int $score): string
+    {
+        return match ($score) {
+            0 => 'Love',
+            1 => 'Fifteen',
+            2 => 'Thirty',
+            3 => 'Forty',
+            default => '',
+        };
     }
 
     protected function getGreaterThanEqualFourScore(): string
@@ -66,17 +73,6 @@ class TennisGame1 implements TennisGame
     protected function getLessThanFourScore(): string
     {
         return $this->getScoreQualifier($this->m_score1) . '-' . $this->getScoreQualifier($this->m_score2);
-    }
-
-    protected function getScoreQualifier(int $score): string
-    {
-        return match ($score) {
-            0 => 'Love',
-            1 => 'Fifteen',
-            2 => 'Thirty',
-            3 => 'Forty',
-            default => '',
-        };
     }
 
     protected function isSameScore(): bool
