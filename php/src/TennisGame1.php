@@ -50,10 +50,10 @@ class TennisGame1 implements TennisGame
 
     protected function getGreaterThanEqualFourScore(): string
     {
-        if ($this->getScoreDiff() == 1) {
+        if ($this->getScoreDiff() === 1) {
             return 'Advantage player1';
         }
-        if ($this->getScoreDiff() == -1) {
+        if ($this->getScoreDiff() === -1) {
             return 'Advantage player2';
         }
         if ($this->getScoreDiff() >= 2) {
@@ -68,9 +68,9 @@ class TennisGame1 implements TennisGame
         return $this->getScoreQualifier($this->m_score1) . '-' . $this->getScoreQualifier($this->m_score2);
     }
 
-    protected function getScoreQualifier(int $tempScore): string
+    protected function getScoreQualifier(int $score): string
     {
-        switch ($tempScore) {
+        switch ($score) {
             case 0:
                 return 'Love';
             case 1:
