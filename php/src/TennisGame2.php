@@ -28,7 +28,7 @@ class TennisGame2 implements TennisGame
     {
         $score = '';
         if ($this->p1point === $this->p2point) {
-            $score = $this->getSameScoreQualifier($score);
+            $score = $this->getSameScoreQualifier();
         }
 
         if ($this->p1point > 0 && $this->p2point === 0) {
@@ -161,24 +161,13 @@ class TennisGame2 implements TennisGame
         }
     }
 
-    protected function getSameScoreQualifier($score): string
+    protected function getSameScoreQualifier(): string
     {
-        if ($this->p1point < 4) {
-            if ($this->p1point === 0) {
-                $score = 'Love';
-            }
-            if ($this->p1point === 1) {
-                $score = 'Fifteen';
-            }
-            if ($this->p1point === 2) {
-                $score = 'Thirty';
-            }
-            $score .= '-All';
-        }
-
-        if ($this->p1point >= 3) {
-            $score = 'Deuce';
-        }
-        return $score;
+        return match ($this->p1point) {
+            0 => 'Love-All',
+            1 => 'Fifteen-All',
+            2=> 'Thirty-All',
+            default => 'Deuce',
+        };
     }
 }
