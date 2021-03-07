@@ -88,13 +88,8 @@ class TennisGame1 implements TennisGame
         return abs($this->m_score1 - $this->m_score2) === 1;
     }
 
-    protected function hasPlayer1Won(): bool
-    {
-        return $this->m_score1 - $this->m_score2 >= 2;
-    }
-
     protected function getPlayerHasWon(): string
     {
-        return $this->hasPlayer1Won() ? $this->player1Name : $this->player2Name;
+        return $this->m_score1 - $this->m_score2 >= 2 ? $this->player1Name : $this->player2Name;
     }
 }
