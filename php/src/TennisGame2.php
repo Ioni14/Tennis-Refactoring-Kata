@@ -31,40 +31,44 @@ class TennisGame2 implements TennisGame
             $score = $this->getSameScoreQualifier();
         }
 
-        if ($this->p1point > 0 && $this->p2point === 0) {
-            $this->computeResultForPlayer2Zero();
-            $score = "{$this->p1res}-{$this->p2res}";
+        if ($this->p1point > $this->p2point) {
+            if ($this->p2point === 0) {
+                $this->computeResultForPlayer2Zero();
+                $score = "{$this->p1res}-{$this->p2res}";
+            }
+
+            if ($this->p1point < 4) {
+                $this->computeResultForBestPlayer1LessThanFour();
+                $score = "{$this->p1res}-{$this->p2res}";
+            }
         }
 
-        if ($this->p1point > $this->p2point && $this->p1point < 4) {
-            $this->computeResultForBestPlayer1LessThanFour();
-            $score = "{$this->p1res}-{$this->p2res}";
-        }
+        if ($this->p2point > $this->p1point) {
+            if ($this->p1point === 0) {
+                $this->computeResultForPlayer1Zero();
+                $score = "{$this->p1res}-{$this->p2res}";
+            }
 
-        if ($this->p2point > 0 && $this->p1point === 0) {
-            $this->computeResultForPlayer1Zero();
-            $score = "{$this->p1res}-{$this->p2res}";
-        }
-
-        if ($this->p2point > $this->p1point && $this->p2point < 4) {
-            $this->computeResultForBestPlayer2LessThanFour();
-            $score = "{$this->p1res}-{$this->p2res}";
+            if ($this->p2point < 4) {
+                $this->computeResultForBestPlayer2LessThanFour();
+                $score = "{$this->p1res}-{$this->p2res}";
+            }
         }
 
         if ($this->hasPlayer1Advantage()) {
-            $score = 'Advantage '.$this->player1Name;
+            $score = 'Advantage ' . $this->player1Name;
         }
 
         if ($this->hasPlayer2Advantage()) {
-            $score = 'Advantage '.$this->player2Name;
+            $score = 'Advantage ' . $this->player2Name;
         }
 
         if ($this->hasPlayer1Won()) {
-            $score = 'Win for '.$this->player1Name;
+            $score = 'Win for ' . $this->player1Name;
         }
 
         if ($this->hasPlayer2Won()) {
-            $score = 'Win for '.$this->player2Name;
+            $score = 'Win for ' . $this->player2Name;
         }
 
         return $score;
@@ -166,7 +170,7 @@ class TennisGame2 implements TennisGame
         return match ($this->p1point) {
             0 => 'Love-All',
             1 => 'Fifteen-All',
-            2=> 'Thirty-All',
+            2 => 'Thirty-All',
             default => 'Deuce',
         };
     }
