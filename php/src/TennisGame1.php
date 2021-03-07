@@ -24,7 +24,7 @@ class TennisGame1 implements TennisGame
 
     public function getScore(): string
     {
-        if ($this->m_score1 === $this->m_score2) {
+        if ($this->isSameScore()) {
             return $this->getSameScoreQualifier($this->m_score1);
         }
         if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
@@ -87,5 +87,10 @@ class TennisGame1 implements TennisGame
     protected function getScoreDiff(): int
     {
         return $this->m_score1 - $this->m_score2;
+    }
+
+    protected function isSameScore(): bool
+    {
+        return $this->m_score1 === $this->m_score2;
     }
 }
