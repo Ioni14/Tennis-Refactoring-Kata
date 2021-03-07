@@ -6,8 +6,6 @@ class TennisGame2 implements TennisGame
 {
     private int $p1point = 0;
     private int $p2point = 0;
-    private string $p1res = '';
-    private string $p2res = '';
 
     public function __construct(
         private string $player1Name,
@@ -26,52 +24,30 @@ class TennisGame2 implements TennisGame
 
     public function getScore(): string
     {
-        $score = '';
         if ($this->p1point === $this->p2point) {
-            $score = $this->getSameScoreQualifier();
-        }
-
-        if ($this->p1point > $this->p2point) {
-            if ($this->p2point === 0) {
-                $this->p1res = $this->getResultByPointGreaterThanZero($this->p1point);
-                $this->p2res = 'Love';
-            }
-            if ($this->p1point < 4) {
-                $this->p1res = $this->computeResultPlayerLessThanFour($this->p1point, $this->p1res);
-                $this->p2res = $this->computeResultPlayerLessThanFour($this->p2point, $this->p2res);
-            }
-            $score = "{$this->p1res}-{$this->p2res}";
-        }
-
-        if ($this->p2point > $this->p1point) {
-            if ($this->p1point === 0) {
-                $this->p2res = $this->getResultByPointGreaterThanZero($this->p2point);
-                $this->p1res = 'Love';
-            }
-            if ($this->p2point < 4) {
-                $this->p1res = $this->computeResultPlayerLessThanFour($this->p1point, $this->p1res);
-                $this->p2res = $this->computeResultPlayerLessThanFour($this->p2point, $this->p2res);
-            }
-            $score = "{$this->p1res}-{$this->p2res}";
-        }
-
-        if ($this->hasPlayer1Advantage()) {
-            $score = 'Advantage ' . $this->player1Name;
-        }
-
-        if ($this->hasPlayer2Advantage()) {
-            $score = 'Advantage ' . $this->player2Name;
+            return $this->getSameScoreQualifier();
         }
 
         if ($this->hasPlayer1Won()) {
-            $score = 'Win for ' . $this->player1Name;
+            return 'Win for ' . $this->player1Name;
         }
 
         if ($this->hasPlayer2Won()) {
-            $score = 'Win for ' . $this->player2Name;
+            return 'Win for ' . $this->player2Name;
         }
 
-        return $score;
+        if ($this->hasPlayer1Advantage()) {
+            return 'Advantage ' . $this->player1Name;
+        }
+
+        if ($this->hasPlayer2Advantage()) {
+            return 'Advantage ' . $this->player2Name;
+        }
+
+        $p1res = $this->computeResultPlayerLessThanFour($this->p1point);
+        $p2res = $this->computeResultPlayerLessThanFour($this->p2point);
+
+        return "{$p1res}-{$p2res}";
     }
 
     private function p1Score(): void
@@ -104,16 +80,6 @@ class TennisGame2 implements TennisGame
         return $this->p2point > $this->p1point && $this->p1point >= 3;
     }
 
-    protected function getResultByPointGreaterThanZero($point): string
-    {
-        return match ($point) {
-            1 => 'Fifteen',
-            2 => 'Thirty',
-            3 => 'Forty',
-            default => '',
-        };
-    }
-
     protected function getSameScoreQualifier(): string
     {
         return match ($this->p1point) {
@@ -124,13 +90,14 @@ class TennisGame2 implements TennisGame
         };
     }
 
-    protected function computeResultPlayerLessThanFour($point, $previousResult): string
+    protected function computeResultPlayerLessThanFour($point): string
     {
         return match ($point) {
+            0 => 'Love',
             1 => 'Fifteen',
             2 => 'Thirty',
             3 => 'Forty',
-            default => $previousResult,
+            default => '',
         };
     }
 }
