@@ -70,18 +70,13 @@ class TennisGame1 implements TennisGame
 
     protected function getScoreQualifier(int $score): string
     {
-        switch ($score) {
-            case 0:
-                return 'Love';
-            case 1:
-                return 'Fifteen';
-            case 2:
-                return 'Thirty';
-            case 3:
-                return 'Forty';
-        }
-
-        return '';
+        return match ($score) {
+            0 => 'Love',
+            1 => 'Fifteen',
+            2 => 'Thirty',
+            3 => 'Forty',
+            default => '',
+        };
     }
 
     protected function isSameScore(): bool
