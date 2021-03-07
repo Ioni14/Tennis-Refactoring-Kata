@@ -34,25 +34,21 @@ class TennisGame2 implements TennisGame
         if ($this->p1point > $this->p2point) {
             if ($this->p2point === 0) {
                 $this->computeResultForPlayer2Zero();
-                $score = "{$this->p1res}-{$this->p2res}";
             }
-
             if ($this->p1point < 4) {
                 $this->computeResultForBestPlayer1LessThanFour();
-                $score = "{$this->p1res}-{$this->p2res}";
             }
+            $score = "{$this->p1res}-{$this->p2res}";
         }
 
         if ($this->p2point > $this->p1point) {
             if ($this->p1point === 0) {
                 $this->computeResultForPlayer1Zero();
-                $score = "{$this->p1res}-{$this->p2res}";
             }
-
             if ($this->p2point < 4) {
                 $this->computeResultForBestPlayer2LessThanFour();
-                $score = "{$this->p1res}-{$this->p2res}";
             }
+            $score = "{$this->p1res}-{$this->p2res}";
         }
 
         if ($this->hasPlayer1Advantage()) {
