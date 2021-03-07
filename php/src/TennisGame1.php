@@ -4,23 +4,21 @@ namespace TennisGame;
 
 class TennisGame1 implements TennisGame
 {
-    private $m_score1 = 0;
-    private $m_score2 = 0;
-    private $player1Name = '';
-    private $player2Name = '';
+    private int $m_score1 = 0;
+    private int $m_score2 = 0;
 
-    public function __construct($player1Name, $player2Name)
-    {
-        $this->player1Name = $player1Name;
-        $this->player2Name = $player2Name;
+    public function __construct(
+        private string $player1Name,
+        private string $player2Name
+    ) {
     }
 
     public function wonPoint($playerName)
     {
         if ('player1' == $playerName) {
-            $this->m_score1++;
+            ++$this->m_score1;
         } else {
-            $this->m_score2++;
+            ++$this->m_score2;
         }
     }
 
@@ -40,28 +38,29 @@ class TennisGame1 implements TennisGame
     {
         switch ($score) {
             case 0:
-                return "Love-All";
+                return 'Love-All';
             case 1:
-                return "Fifteen-All";
+                return 'Fifteen-All';
             case 2:
-                return "Thirty-All";
+                return 'Thirty-All';
         }
-        return "Deuce";
+
+        return 'Deuce';
     }
 
     protected function getGreaterThanEqualFourScore(): string
     {
         if ($this->getScoreDiff() == 1) {
-            return "Advantage player1";
+            return 'Advantage player1';
         }
         if ($this->getScoreDiff() == -1) {
-            return "Advantage player2";
+            return 'Advantage player2';
         }
         if ($this->getScoreDiff() >= 2) {
-            return "Win for player1";
+            return 'Win for player1';
         }
 
-        return "Win for player2";
+        return 'Win for player2';
     }
 
     protected function getLessThanFourScore(): string
@@ -73,14 +72,15 @@ class TennisGame1 implements TennisGame
     {
         switch ($tempScore) {
             case 0:
-                return "Love";
+                return 'Love';
             case 1:
-                return "Fifteen";
+                return 'Fifteen';
             case 2:
-                return "Thirty";
+                return 'Thirty';
             case 3:
-                return "Forty";
+                return 'Forty';
         }
+
         return '';
     }
 
