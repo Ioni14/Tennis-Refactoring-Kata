@@ -52,12 +52,11 @@ class TennisGame1 implements TennisGame
 
     protected function getGreaterThanEqualFourScore(): string
     {
-        $minusResult = $this->computeScoreDiff();
-        if ($minusResult == 1) {
+        if ($this->getScoreDiff() == 1) {
             $score = "Advantage player1";
-        } elseif ($minusResult == -1) {
+        } elseif ($this->getScoreDiff() == -1) {
             $score = "Advantage player2";
-        } elseif ($minusResult >= 2) {
+        } elseif ($this->getScoreDiff() >= 2) {
             $score = "Win for player1";
         } else {
             $score = "Win for player2";
@@ -85,7 +84,7 @@ class TennisGame1 implements TennisGame
         return '';
     }
 
-    protected function computeScoreDiff(): int
+    protected function getScoreDiff(): int
     {
         return $this->m_score1 - $this->m_score2;
     }
