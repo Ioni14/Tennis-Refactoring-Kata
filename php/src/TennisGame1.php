@@ -69,12 +69,10 @@ class TennisGame1 implements TennisGame
     {
         for ($i = 1; $i < 3; $i++) {
             if ($i == 1) {
-                $tempScore = $this->m_score1;
+                $score .= $this->getScoreQualifier($this->m_score1);
             } else {
-                $score .= "-";
-                $tempScore = $this->m_score2;
+                $score .= '-'.$this->getScoreQualifier($this->m_score2);
             }
-            $score .= $this->getScoreQualifier($tempScore);
         }
         return $score;
     }
