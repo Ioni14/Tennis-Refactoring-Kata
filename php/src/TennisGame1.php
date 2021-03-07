@@ -27,7 +27,7 @@ class TennisGame1 implements TennisGame
         if ($this->isSameScore()) {
             return $this->getSameScoreQualifier($this->m_score1);
         }
-        if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
+        if ($this->isAtLeastOneScoreGreaterThanEqualFour()) {
             return $this->getGreaterThanEqualFourScore();
         }
 
@@ -93,5 +93,10 @@ class TennisGame1 implements TennisGame
     protected function hasPlayer1Won(): bool
     {
         return $this->m_score1 - $this->m_score2 >= 2;
+    }
+
+    protected function isAtLeastOneScoreGreaterThanEqualFour(): bool
+    {
+        return $this->m_score1 >= 4 || $this->m_score2 >= 4;
     }
 }
