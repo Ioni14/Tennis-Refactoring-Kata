@@ -30,16 +30,7 @@ class TennisGame1 implements TennisGame
         if ($this->m_score1 == $this->m_score2) {
             $score = $this->getSameScore();
         } elseif ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
-            $minusResult = $this->m_score1 - $this->m_score2;
-            if ($minusResult == 1) {
-                $score = "Advantage player1";
-            } elseif ($minusResult == -1) {
-                $score = "Advantage player2";
-            } elseif ($minusResult >= 2) {
-                $score = "Win for player1";
-            } else {
-                $score = "Win for player2";
-            }
+            $score = $this->getGreaterThanEqualFourScore();
         } else {
             for ($i = 1; $i < 3; $i++) {
                 if ($i == 1) {
@@ -82,6 +73,21 @@ class TennisGame1 implements TennisGame
             default:
                 $score = "Deuce";
                 break;
+        }
+        return $score;
+    }
+
+    protected function getGreaterThanEqualFourScore(): string
+    {
+        $minusResult = $this->m_score1 - $this->m_score2;
+        if ($minusResult == 1) {
+            $score = "Advantage player1";
+        } elseif ($minusResult == -1) {
+            $score = "Advantage player2";
+        } elseif ($minusResult >= 2) {
+            $score = "Win for player1";
+        } else {
+            $score = "Win for player2";
         }
         return $score;
     }
