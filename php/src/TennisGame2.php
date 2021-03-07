@@ -105,19 +105,19 @@ class TennisGame2 implements TennisGame
             $score = "{$this->p1res}-{$this->p2res}";
         }
 
-        if ($this->p1point > $this->p2point && $this->p2point >= 3) {
+        if ($this->hasPlayer1Advantage()) {
             $score = 'Advantage '.$this->player1Name;
         }
 
-        if ($this->p2point > $this->p1point && $this->p1point >= 3) {
+        if ($this->hasPlayer2Advantage()) {
             $score = 'Advantage '.$this->player2Name;
         }
 
-        if ($this->p1point >= 4 && $this->p2point >= 0 && ($this->p1point - $this->p2point) >= 2) {
+        if ($this->hasPlayer1Won()) {
             $score = 'Win for '.$this->player1Name;
         }
 
-        if ($this->p2point >= 4 && $this->p1point >= 0 && ($this->p2point - $this->p1point) >= 2) {
+        if ($this->hasPlayer2Won()) {
             $score = 'Win for '.$this->player2Name;
         }
 
@@ -132,5 +132,25 @@ class TennisGame2 implements TennisGame
     private function p2Score(): void
     {
         ++$this->p2point;
+    }
+
+    protected function hasPlayer1Won(): bool
+    {
+        return $this->p1point >= 4 && $this->p2point >= 0 && ($this->p1point - $this->p2point) >= 2;
+    }
+
+    protected function hasPlayer2Won(): bool
+    {
+        return $this->p2point >= 4 && $this->p1point >= 0 && ($this->p2point - $this->p1point) >= 2;
+    }
+
+    protected function hasPlayer1Advantage(): bool
+    {
+        return $this->p1point > $this->p2point && $this->p2point >= 3;
+    }
+
+    protected function hasPlayer2Advantage(): bool
+    {
+        return $this->p2point > $this->p1point && $this->p1point >= 3;
     }
 }
