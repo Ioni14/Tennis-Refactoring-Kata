@@ -26,15 +26,14 @@ class TennisGame1 implements TennisGame
 
     public function getScore()
     {
-        $score = "";
         if ($this->m_score1 == $this->m_score2) {
-            $score = $this->getSameScoreQualifier($this->m_score1);
-        } elseif ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
-            $score = $this->getGreaterThanEqualFourScore();
-        } else {
-            $score = $this->getLessThanFourScore();
+            return $this->getSameScoreQualifier($this->m_score1);
         }
-        return $score;
+        if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
+            return $this->getGreaterThanEqualFourScore();
+        }
+
+        return $this->getLessThanFourScore();
     }
 
     protected function getSameScoreQualifier($score): string
