@@ -57,17 +57,14 @@ class TennisGame1 implements TennisGame
 
     protected function getGreaterThanEqualFourScore(): string
     {
-        if ($this->hasPlayer1Advantage()) {
-            return 'Advantage '.$this->player1Name;
-        }
-        if ($this->hasPlayer2Advantage()) {
-            return 'Advantage '.$this->player2Name;
+        if ($this->hasOnePlayerAdvantage()) {
+            return 'Advantage ' . $this->getPlayerHasAdvantage();
         }
         if ($this->hasPlayer1Won()) {
-            return 'Win for '.$this->player1Name;
+            return 'Win for ' . $this->player1Name;
         }
 
-        return 'Win for '.$this->player2Name;
+        return 'Win for ' . $this->player2Name;
     }
 
     protected function getLessThanFourScore(): string
@@ -85,11 +82,6 @@ class TennisGame1 implements TennisGame
         return $this->m_score1 - $this->m_score2 === 1;
     }
 
-    protected function hasPlayer2Advantage(): bool
-    {
-        return $this->m_score1 - $this->m_score2 === -1;
-    }
-
     protected function hasPlayer1Won(): bool
     {
         return $this->m_score1 - $this->m_score2 >= 2;
@@ -98,5 +90,15 @@ class TennisGame1 implements TennisGame
     protected function isAtLeastOneScoreGreaterThanEqualFour(): bool
     {
         return $this->m_score1 >= 4 || $this->m_score2 >= 4;
+    }
+
+    protected function getPlayerHasAdvantage(): string
+    {
+        return $this->hasPlayer1Advantage() ? $this->player1Name : $this->player2Name;
+    }
+
+    private function hasOnePlayerAdvantage(): bool
+    {
+        return abs($this->m_score1 - $this->m_score2) === 1;
     }
 }
