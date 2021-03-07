@@ -68,11 +68,17 @@ class TennisGame1 implements TennisGame
     protected function getLessThanFourScore(string $score): string
     {
         for ($i = 1; $i < 3; $i++) {
-            if ($i == 1) {
-                $score .= $this->getScoreQualifier($this->m_score1);
-            } else {
-                $score .= '-'.$this->getScoreQualifier($this->m_score2);
-            }
+            $score = $this->getOneLessThanFourScore($i, $score);
+        }
+        return $score;
+    }
+
+    protected function getOneLessThanFourScore(int $i, string $score): string
+    {
+        if ($i == 1) {
+            $score .= $this->getScoreQualifier($this->m_score1);
+        } else {
+            $score .= '-' . $this->getScoreQualifier($this->m_score2);
         }
         return $score;
     }
