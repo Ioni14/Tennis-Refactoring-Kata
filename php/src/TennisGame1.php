@@ -28,7 +28,7 @@ class TennisGame1 implements TennisGame
     {
         $score = "";
         if ($this->m_score1 == $this->m_score2) {
-            $score = $this->getSameScore();
+            $score = $this->getSameScoreQualifier($this->m_score1);
         } elseif ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
             $score = $this->getGreaterThanEqualFourScore();
         } else {
@@ -37,23 +37,17 @@ class TennisGame1 implements TennisGame
         return $score;
     }
 
-    protected function getSameScore(): string
+    protected function getSameScoreQualifier($score): string
     {
-        switch ($this->m_score1) {
+        switch ($score) {
             case 0:
-                $score = "Love-All";
-                break;
+                return "Love-All";
             case 1:
-                $score = "Fifteen-All";
-                break;
+                return "Fifteen-All";
             case 2:
-                $score = "Thirty-All";
-                break;
-            default:
-                $score = "Deuce";
-                break;
+                return "Thirty-All";
         }
-        return $score;
+        return "Deuce";
     }
 
     protected function getGreaterThanEqualFourScore(): string
