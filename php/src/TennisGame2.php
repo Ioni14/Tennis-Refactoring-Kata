@@ -33,7 +33,8 @@ class TennisGame2 implements TennisGame
 
         if ($this->p1point > $this->p2point) {
             if ($this->p2point === 0) {
-                $this->computeResultForPlayer2Zero();
+                $this->p1res = $this->getResultByPointGreaterThanZero($this->p1point);
+                $this->p2res = 'Love';
             }
             if ($this->p1point < 4) {
                 $this->computeResultForBestPlayer1LessThanFour();
@@ -43,7 +44,8 @@ class TennisGame2 implements TennisGame
 
         if ($this->p2point > $this->p1point) {
             if ($this->p1point === 0) {
-                $this->computeResultForPlayer1Zero();
+                $this->p2res = $this->getResultByPointGreaterThanZero($this->p2point);
+                $this->p1res = 'Love';
             }
             if ($this->p2point < 4) {
                 $this->computeResultForBestPlayer2LessThanFour();
@@ -100,33 +102,14 @@ class TennisGame2 implements TennisGame
         return $this->p2point > $this->p1point && $this->p1point >= 3;
     }
 
-    protected function computeResultForPlayer2Zero(): void
+    protected function getResultByPointGreaterThanZero($point): string
     {
-        if ($this->p1point === 1) {
-            $this->p1res = 'Fifteen';
-        }
-        if ($this->p1point === 2) {
-            $this->p1res = 'Thirty';
-        }
-        if ($this->p1point === 3) {
-            $this->p1res = 'Forty';
-        }
-
-        $this->p2res = 'Love';
-    }
-
-    protected function computeResultForPlayer1Zero(): void
-    {
-        if ($this->p2point === 1) {
-            $this->p2res = 'Fifteen';
-        }
-        if ($this->p2point === 2) {
-            $this->p2res = 'Thirty';
-        }
-        if ($this->p2point === 3) {
-            $this->p2res = 'Forty';
-        }
-        $this->p1res = 'Love';
+        return match ($point) {
+            1 => 'Fifteen',
+            2 => 'Thirty',
+            3 => 'Forty',
+            default => '',
+        };
     }
 
     protected function computeResultForBestPlayer1LessThanFour(): void
