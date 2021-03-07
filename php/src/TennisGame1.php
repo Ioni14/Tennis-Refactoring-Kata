@@ -32,7 +32,7 @@ class TennisGame1 implements TennisGame
         } elseif ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
             $score = $this->getGreaterThanEqualFourScore();
         } else {
-            $score = $this->getLessThanFourScore($score);
+            $score = $this->getLessThanFourScore();
         }
         return $score;
     }
